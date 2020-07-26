@@ -25,14 +25,35 @@ import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
 import routes from "routes.js";
+import authenticationService from "../services/AuthenticationService";
 
 class Admin extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        name: "Hello World",
+        avatar:
+          "https://s3-ap-southeast-1.amazonaws.com/usrun-photo/avatar-default",
+      },
+    };
+  }
+
+  componentDidMount() {
+    const user = authenticationService.getUser();
+    if (!user) {
+      this.props.history.push("/auth/login");
+    } else {
+      this.setState({ user });
+    }
+  }
+
   componentDidUpdate(e) {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.mainContent.scrollTop = 0;
   }
-  getRoutes = routes => {
+  getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
@@ -47,7 +68,7 @@ class Admin extends React.Component {
       }
     });
   };
-  getBrandText = path => {
+  getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {
       if (
         this.props.location.pathname.indexOf(
@@ -60,6 +81,7 @@ class Admin extends React.Component {
     return "Brand";
   };
   render() {
+    const { user } = this.state;
     return (
       <>
         <Sidebar
@@ -68,11 +90,12 @@ class Admin extends React.Component {
           logo={{
             innerLink: "/admin/index",
             imgSrc: require("assets/img/brand/usrun.png"),
-            imgAlt: "..."
+            imgAlt: "...",
           }}
         />
         <div className="main-content" ref="mainContent">
           <AdminNavbar
+            user={user}
             {...this.props}
             brandText={this.getBrandText(this.props.location.pathname)}
           />
