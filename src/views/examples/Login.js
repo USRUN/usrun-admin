@@ -121,67 +121,12 @@ const Login = ({history}) => {
               </div>
               <div className="text-center">
                 <Button className="mt-4" color="primary" onClick={onLogin} type="button">
-                ĐĂNG NHẬP
+                  ĐĂNG NHẬP
                 </Button>
               </div>
             </Form>
           </CardBody>
-          <CardFooter>
-          <div className="text-muted text-center mt-2 mb-3">
-              <small>Đăng nhập với</small>
-            </div>
-            <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={e => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={require("assets/img/icons/common/github.svg")}
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={e => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={require("assets/img/icons/common/google.svg")}
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
-            </div>
-          </CardFooter>
         </Card>
-        <Row className="mt-3">
-          <Col xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={e => e.preventDefault()}
-            >
-              <small style={{color:'#fff'}}>Quên mật khẩu?</small>
-            </a>
-          </Col>
-          <Col className="text-right" xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={e => e.preventDefault()}
-            >
-              <small style={{color:'#fff'}}>Tạo tài khoản</small>
-            </a>
-          </Col>
-        </Row>
       </Col>
     </>
   );
