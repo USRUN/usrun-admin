@@ -22,17 +22,17 @@ import { Container, Row, Col } from "reactstrap";
 
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
-import AuthFooter from "components/Footers/AuthFooter.js";
+import Footer from "components/Footers/Footer";
 import "../assets/scss/usrun-custom/auth.scss";
 
 import routes from "routes.js";
 
 class Auth extends React.Component {
   componentDidMount() {
-    document.body.classList.add("bg-default");
+    document.body.classList.add("bg-usrun");
   }
   componentWillUnmount() {
-    document.body.classList.remove("bg-default");
+    document.body.classList.remove("bg-usrun");
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
@@ -75,7 +75,7 @@ class Auth extends React.Component {
               </Switch>
             </Row>
           </Container>
-          <AuthFooter />
+          <Footer />
         </div>
       </>
     );

@@ -36,9 +36,9 @@ import {
 } from "reactstrap";
 
 import authenticationService from "../../services/AuthenticationService";
-import Login from "components/Footers/AuthFooter";
 
 const AdminNavbar = ({ user, brandText, history }) => {
+  
   const onLogout = (e) => {
     e.preventDefault();
     authenticationService.logout();

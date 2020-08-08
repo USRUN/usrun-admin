@@ -5,3 +5,17 @@
     position: relative !important;
     background-color: #fff !important;
 }
+.react-toggle--checked .react-toggle-track {
+    background-color: #f48727 !important;
+}
+
+.react-toggle--checked .react-toggle-thumb {
+    border-color: #ef773d !important;
+}
+
+.react-toggle--focus .react-toggle-thumb {
+    box-shadow:0 0 2px 3px #ef773d !important;
+}
+.navbar-search-dark .input-group {
+    border-color: #ef773d !important;
+}

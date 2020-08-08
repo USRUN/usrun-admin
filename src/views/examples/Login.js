@@ -59,7 +59,7 @@ const Login = ({history}) => {
           onScreen: true
         }
       });
-      history.push('/admin/index');
+      history.push('/admin/manage-user');
     } else {
       store.addNotification({
         title: "Lỗi",
