@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // reactstrap components
 import {
@@ -7,39 +7,90 @@ import {
     Card,
     CardHeader,
     CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    Media,
     Pagination,
     PaginationItem,
     PaginationLink,
-    Progress,
     Table,
     Container,
     Row,
-    UncontrolledTooltip
+    Form,
+    FormGroup,
+    InputGroupAddon,
+    InputGroupText,
+    Input,
+    InputGroup,
 } from "reactstrap";
-import Toggle from 'react-toggle'
+import ManageUserTableItem from '../../components/ManageUser/ManageUserTableItem'
 import "../../assets/scss/usrun-custom/toggle.scss"
+import UserService from "services/UserService";
 
+const requestUserBan = (userId, isEnabled) => {
+    // UserService.banUser(userId, !isEnabled);
+}
+
+const getTableItems = (userList) => {
+    return userList.map((item, index) => (
+        <ManageUserTableItem
+            key={index}
+            userId={item['userId']}
+            name={item['displayName']}
+            email={item['email']}
+            authType={item['authType']}
+            isEnabled={item['enabled']}
+            banUser={requestUserBan}
+        ></ManageUserTableItem>
+    ));
+}
 
 const ManageUser = () => {
-    const [cur , setCur] = useState(true);
+    const [cur, setCur] = useState(1);
+    const limit = 10;
+    const [searchString, setSearchString] = useState("");
 
-    const banUser = (e) => {
-        console.log('change')
-        setCur(!cur);
-        console.log(e)
+    let userList = [];
+
+    const [tableItems, setTableItems] = useState([].concat(getTableItems(userList)));
+
+    const loadPage = async (offset, limit) => {
+        userList = await UserService.loadUserOnPage(offset, limit);
+
+        if (userList != null) {
+            setTableItems([].concat(getTableItems(userList)));
+        }
     }
+
+    useEffect(() => {
+        loadPage(0, limit);
+    }, []);
+
+    const handlePaginationClick = (changeAmount) => {
+        setCur(cur + changeAmount);
+        loadPage(cur, limit);
+    }
+
+    const handleUserSearch = () => {
+        console.log("")
+    }
+
 
     return (<Container className="mt-3" fluid>
         <Row>
             <div className="col">
                 <Card className="shadow">
-                    <CardHeader className="border-0">
-                        <h3 className="mb-0">Manage user</h3>
+                    <CardHeader className="border-0 d-flex">
+                        <h3 className="mb-0 d-inline-block my-auto">Manage user</h3>
+                        <Form className="form-inline my-auto ml-auto" onSubmit={e => e.preventDefault()}>
+                            <FormGroup className="mb-0">
+                                <InputGroup className="input-group-alternative">
+                                    <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>
+                                            <i className="fas fa-search" />
+                                        </InputGroupText>
+                                    </InputGroupAddon>
+                                    <Input placeholder="Search User" type="text" onChange={handleUserSearch} />
+                                </InputGroup>
+                            </FormGroup>
+                        </Form>
                     </CardHeader>
                     <Table className="align-items-center table-flush" responsive>
                         <thead className="thead-light">
@@ -51,107 +102,7 @@ const ManageUser = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                        defaultChecked={cur}
-                                        onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                        defaultChecked={false}
-                                        onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
-                            <tr>
-                                <td scope="col">Username</td>
-                                <td scope="col">Name</td>
-                                <td scope="col">Auth type</td>
-                                <td>
-                                    <Toggle
-                                    defaultChecked={false}
-                                    onChange={banUser} />
-                                    <label htmlFor='cheese-status'></label></td>
-                            </tr>
+                            {tableItems && tableItems}
                         </tbody>
                     </Table>
                     <CardFooter className="py-4">
@@ -160,23 +111,23 @@ const ManageUser = () => {
                                 className="pagination justify-content-end mb-0"
                                 listClassName="justify-content-end mb-0"
                             >
-                                <PaginationItem className="disabled">
+                                <PaginationItem className={cur == 0 ? "disabled" : ""}>
                                     <PaginationLink
                                         href="#pablo"
-                                        onClick={e => e.preventDefault()}
+                                        onClick={e => { e.preventDefault(); handlePaginationClick(-1) }}
                                         tabIndex="-1"
                                     >
                                         <i className="fas fa-angle-left" />
                                         <span className="sr-only">Previous</span>
                                     </PaginationLink>
                                 </PaginationItem>
-                                <PaginationItem className="active">
+                                {/* <PaginationItem className="active">
                                     <PaginationLink
                                         href="#pablo"
                                         onClick={e => e.preventDefault()}
                                     >
                                         1
-                        </PaginationLink>
+                                </PaginationLink>
                                 </PaginationItem>
                                 <PaginationItem>
                                     <PaginationLink
@@ -192,12 +143,12 @@ const ManageUser = () => {
                                         onClick={e => e.preventDefault()}
                                     >
                                         3
-                        </PaginationLink>
-                                </PaginationItem>
+                        </PaginationLink> */}
+                                {/* </PaginationItem> */}
                                 <PaginationItem>
                                     <PaginationLink
                                         href="#pablo"
-                                        onClick={e => e.preventDefault()}
+                                        onClick={e => { e.preventDefault(); handlePaginationClick(1) }}
                                     >
                                         <i className="fas fa-angle-right" />
                                         <span className="sr-only">Next</span>
