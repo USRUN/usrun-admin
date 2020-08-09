@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,
@@ -23,8 +22,8 @@ import ManageUserTableItem from "../../components/ManageUser/ManageUserTableItem
 import "../../assets/scss/usrun-custom/toggle.scss";
 import UserService from "services/UserService";
 
-const requestUserBan = (userId, isEnabled) => {
-  // UserService.banUser(userId, !isEnabled);
+const requestUserBan = (user) => {
+  UserService.banUser(user["userId"], user["isEnabled"]);
 };
 
 const getTableItems = (userList) => {
@@ -36,7 +35,7 @@ const getTableItems = (userList) => {
       email={item["email"]}
       authType={item["authType"]}
       isEnabled={item["enabled"]}
-      banUser={requestUserBan(item["userId"],item["enabled"])}
+      banUser={e => requestUserBan(item)}
     ></ManageUserTableItem>
   ));
 };
@@ -45,9 +44,9 @@ const ManageUser = () => {
   const [cur, setCur] = useState(1);
   const limit = 10;
   const [searchString, setSearchString] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   let userList = [];
-  let isSearching = false;
 
   const [tableItems, setTableItems] = useState(
     [].concat(getTableItems(userList))
@@ -65,23 +64,28 @@ const ManageUser = () => {
   };
 
   useEffect(() => {
-    loadPage(0, limit);
+    loadPage(cur, limit);
   }, []);
 
-  const handlePaginationClick = (changeAmount) => {
-    setCur(cur + changeAmount);
-    loadPage(cur, limit);
+  const handlePaginationClick = async changeAmount => {
+    await setCur(cur + changeAmount);
+    loadPage(cur + changeAmount, limit);
   };
 
   const handleUserSearch = async (e) => {
-    console.log(searchString);
-    if(searchString === null || searchString === "") return;
+    if(searchString === null) return;
+    if(searchString === ""){
+      setIsSearching(false);
+      setCur(1);
+      loadPage(1,limit);
+    }
+
     userList = await UserService.findUsers(searchString, 1, limit);
 
     if (userList != null) {
       setTableItems([].concat(getTableItems(userList)));
       setCur(1);
-      isSearching = true;
+      setIsSearching(true);
     }
   };
 
@@ -138,7 +142,7 @@ const ManageUser = () => {
                   className="pagination justify-content-end mb-0"
                   listClassName="justify-content-end mb-0"
                 >
-                  <PaginationItem className={cur == 0 ? "disabled" : ""}>
+                  <PaginationItem className={cur === 1 ? "disabled" : ""}>
                     <PaginationLink
                       href="#pablo"
                       onClick={(e) => {

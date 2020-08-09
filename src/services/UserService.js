@@ -1,5 +1,4 @@
 import axios from "../utils/axios";
-import AuthenticationService from "./AuthenticationService";
 
 
 const banUser = async (userId, banned) => {
@@ -9,7 +8,7 @@ const banUser = async (userId, banned) => {
             banned
         });
 
-        if (response.data.code == 0) {
+        if (response.data.code === 0) {
             return true;
         } else {
             return false;
@@ -27,7 +26,7 @@ const loadUserOnPage = async (offset, limit) => {
             limit
         });
 
-        if (response.data.code == 0) {
+        if (response.data.code === 0) {
             return response.data.data;
         } else {
             return [];
@@ -46,7 +45,7 @@ const findUsers = async (key, offset, count) => {
             count
         });
 
-        if (response.data.code == 0) {
+        if (response.data.code === 0) {
             return response.data.data;
         } else {
             return [];

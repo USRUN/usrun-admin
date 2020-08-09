@@ -9,7 +9,7 @@ const ManageUserTableItem = props => {
             <td>{props.authType}</td>
             <td>
                 <Toggle
-                    defaultChecked={props.isEnabled}
+                    defaultChecked={!props.isEnabled}
                     onChange={props.banUser}
                     />
                 <label htmlFor='cheese-status'></label></td>
