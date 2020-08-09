@@ -21,18 +21,32 @@ const banUser = async (userId, banned) => {
 };
 
 const loadUserOnPage = async (offset, limit) => {
-    const authHeader = AuthenticationService.authHeader();
-
     try {
         const response = await axios.post("/users/getAllUsersPaged", {
             offset,
             limit
-        }, {
-            headers: authHeader,
         });
 
         if (response.data.code == 0) {
-            console.log(response.data);
+            return response.data.data;
+        } else {
+            return [];
+        }
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
+}
+
+const findUsers = async (key, offset, count) => {
+    try {
+        const response = await axios.post("/users/findUsersPaged", {
+            key,
+            offset,
+            count
+        });
+
+        if (response.data.code == 0) {
             return response.data.data;
         } else {
             return [];
@@ -45,5 +59,6 @@ const loadUserOnPage = async (offset, limit) => {
 
 export default {
     banUser,
-    loadUserOnPage
+    loadUserOnPage,
+    findUsers,
 };
