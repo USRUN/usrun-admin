@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,
@@ -23,8 +22,8 @@ import ManageUserTableItem from "../../components/ManageUser/ManageUserTableItem
 import "../../assets/scss/usrun-custom/toggle.scss";
 import UserService from "services/UserService";
 
-const requestUserBan = (userId, isEnabled) => {
-  // UserService.banUser(userId, !isEnabled);
+const requestUserBan = (user) => {
+  UserService.banUser(user["userId"], user["isEnabled"]);
 };
 
 const getTableItems = (userList) => {
@@ -36,7 +35,7 @@ const getTableItems = (userList) => {
       email={item["email"]}
       authType={item["authType"]}
       isEnabled={item["enabled"]}
-      banUser={requestUserBan(item["userId"],item["enabled"])}
+      banUser={e => requestUserBan(item)}
     ></ManageUserTableItem>
   ));
 };
@@ -54,7 +53,6 @@ const ManageUser = () => {
   );
 
   const loadPage = async (offset, limit) => {
-    console.log(isSearching);
     if(!isSearching)
       userList = await UserService.loadUserOnPage(offset, limit);
     else 
@@ -71,7 +69,7 @@ const ManageUser = () => {
 
   const handlePaginationClick = async changeAmount => {
     await setCur(cur + changeAmount);
-    loadPage(cur+changeAmount, limit);
+    loadPage(cur + changeAmount, limit);
   };
 
   const handleUserSearch = async (e) => {
@@ -144,7 +142,7 @@ const ManageUser = () => {
                   className="pagination justify-content-end mb-0"
                   listClassName="justify-content-end mb-0"
                 >
-                  <PaginationItem className={cur == 1 ? "disabled" : ""}>
+                  <PaginationItem className={cur === 1 ? "disabled" : ""}>
                     <PaginationLink
                       href="#pablo"
                       onClick={(e) => {
