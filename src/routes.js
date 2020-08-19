@@ -22,64 +22,29 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import ManageUser from "views/examples/ManageUser.js"
-import ManageTeam from "views/examples/ManageTeam.js"
+import ManageOrganization from "views/examples/ManageOrganization"
 
 var routes = [
   {
-    path: "/index",
-    name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
-    component: Index,
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/user-profile",
-    name: "User Profile",
-    icon: "ni ni-single-02 text-yellow",
-    component: Profile,
-    layout: "/admin"
-  },
-  {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
-    layout: "/admin"
-  },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-key-25 text-info",
-    component: Login,
-    layout: "/auth"
-  },
-  {
     path: "/manage-user",
-    name: "Manage User",
-    icon: "ni ni-circle-08 text-pink",
+    name: "Quản lý tài khoản",
+    icon: "fas fa-users text-primary",
     component: ManageUser,
     layout: "/admin"
   },
   {
-    path: "/manage-team",
-    name: "Quản lý đội nhóm",
-    icon: "ni ni-books text-pink",
-    component: ManageTeam,
+    path: "/manage-event",
+    name: "Quản lý sự kiện",
+    icon: "fas fa-calendar-week text-primary",
+    component: ManageUser,
     layout: "/admin"
-  }
+  },
+  {
+    path: "/manage-organization",
+    name: "Quản lý tổ chức",
+    icon: "fas fa-sitemap text-primary",
+    component: ManageOrganization,
+    layout: "/admin"
+  },
 ];
 export default routes;

@@ -23,7 +23,10 @@ import "../../assets/scss/usrun-custom/toggle.scss";
 import UserService from "services/UserService";
 
 const requestUserBan = (user) => {
-  UserService.banUser(user["userId"], user["isEnabled"]);
+  const banError = UserService.banUser(user["userId"], user["isEnabled"]);
+  if(banError){
+    user["isEnable"] = !user["isEnable"]
+  }
 };
 
 const getTableItems = (userList) => {
