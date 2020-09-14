@@ -2,7 +2,7 @@ import axios from 'axios';
 import AuthenticationService from 'services/AuthenticationService';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8080/admin',
+  baseURL: 'http://localhost:8800/admin',
 });
 
 instance.interceptors.request.use(function (config) {

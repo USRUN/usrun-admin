@@ -25,7 +25,7 @@ class Login extends React.Component {
   render() {
     return (
       <>
-        <footer className="py-5">
+        <footer className="py-5" >
           <Container>
                   <h5 className="footerAuth">© 2020 Copyright by USRUN Team</h5>
           </Container>

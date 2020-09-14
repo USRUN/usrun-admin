@@ -103,8 +103,8 @@ class Admin extends React.Component {
             {this.getRoutes(routes)}
             <Redirect from="*" to="/admin/manage-user" />
           </Switch>
-          <Container fluid>
-            <Footer />
+          <Container fluid style={{position:"absolute", bottom: 0}}>
+            <Footer  />
           </Container>
         </div>
       </>

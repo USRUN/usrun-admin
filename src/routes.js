@@ -23,6 +23,8 @@ import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import ManageUser from "views/examples/ManageUser.js"
 import ManageOrganization from "views/examples/ManageOrganization"
+import ManageEvent from "views/examples/ManageEvent";
+import ManageTeam from "views/examples/ManageTeam";
 
 var routes = [
   {
@@ -36,7 +38,7 @@ var routes = [
     path: "/manage-event",
     name: "Quản lý sự kiện",
     icon: "fas fa-calendar-week text-primary",
-    component: ManageUser,
+    component: ManageEvent,
     layout: "/admin"
   },
   {
@@ -45,6 +47,18 @@ var routes = [
     icon: "fas fa-sitemap text-primary",
     component: ManageOrganization,
     layout: "/admin"
+  },  
+  {
+    path: "/manage-team",
+    name: "Quản lý đọi nhóm",
+    icon: "fas fa-sitemap text-primary",
+    component: ManageTeam,
+    layout: "/admin"
+  },  
+  {
+    path: "/login",
+    component: Login,
+    layout: "/auth"
   },
 ];
 export default routes;

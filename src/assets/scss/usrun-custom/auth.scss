@@ -286,11 +286,11 @@ body {
 .main-content{
     height: 100vh;
     display: flex;
-    place-content: space-between;
     flex-direction: column;
 }
 .footerAuth{
     text-align: center;
     text-decoration: bold;
-    color: #fff;
+    color: #000;
+   
 }

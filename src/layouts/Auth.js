@@ -75,7 +75,7 @@ class Auth extends React.Component {
               </Switch>
             </Row>
           </Container>
-          <Footer />
+          <Footer style={{position:"absolute", bottom: 0}}/>
         </div>
       </>
     );

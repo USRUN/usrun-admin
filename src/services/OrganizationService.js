@@ -19,6 +19,17 @@ const listOrganization = async (offset, limit, keyword) => {
     }
 };
 
+const createOrUpdateOrganization = async (data) =>{
+    try {
+        const response = await axios.post("/sponsor/createOrUpdate",data);
+        return response.data
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
 export default {
     listOrganization,
+    createOrUpdateOrganization
 };
